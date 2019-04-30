@@ -19,7 +19,7 @@ export default PostSelector;
 
 ```
 
-Create a folder called `src` within the `__post-selector` folder and in that folder copy & paste the `post-selector.scss` & `PostSelector.js` files from this repo.
+Create a folder called `src` within the new `__post-selector` folder and in that folder copy & paste the `post-selector.scss` & `PostSelector.js` files from this repo.
 
 ## Usage
 
