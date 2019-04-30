@@ -205,12 +205,12 @@ class PostSelector extends Component {
 		// show each post in the list.
 		return (
 			<ul className="post-selector-selected-list">
-				{this.props.posts.map( ( post, i ) => (
-					<li className="post-selector-selected-list__item" key={post.id}>
+				{ this.props.posts.map( ( post, i ) => (
+					<li className="post-selector-selected-list__item" key={ post.id }>
 						<div className="selected-post">
 							<span className="selected-post__post">{ post.title.rendered } <strong>{ post.typeLabel }</strong></span>
 							<span className="selected-post__button">
-								{0 !== i ? (
+								{ 0 !== i ? (
 									<IconButton
 										className="post-selector-button"
 										icon="arrow-up-alt2"
@@ -222,13 +222,13 @@ class PostSelector extends Component {
 											});
 										}}
 									/>
-								) : null}
+								) : null }
 
-								{this.props.posts.length - 1 !== i ? (
+								{ this.props.posts.length - 1 !== i ? (
 									<IconButton
 										className="post-selector-button"
 										icon="arrow-down-alt2"
-										onClick={() => {
+										onClick={ () => {
 											this.props.posts.splice( i + 1, 0, this.props.posts.splice( i, 1 )[0]);
 											this.props.onChange( this.props.posts );
 											this.setState({
@@ -241,7 +241,7 @@ class PostSelector extends Component {
 								<IconButton
 									className="post-selector-button"
 									icon="no"
-									onClick={() => {
+									onClick={ () => {
 										this.props.posts.splice( i, 1 );
 										this.props.onChange( this.props.posts );
 
@@ -265,7 +265,7 @@ class PostSelector extends Component {
 		/* eslint-disable jsx-a11y/no-autofocus */
 		return (
 			<Fragment>
-				{this.renderSelectedPosts()}
+				{ this.renderSelectedPosts() }
 				<div className="post-selector-search">
 					<label htmlFor="post-selector-search" className="post-selector-search__label">
 						{ __( 'Zoeken', 'clarkson-theme' ) }
@@ -285,8 +285,8 @@ class PostSelector extends Component {
 						role="combobox"
 						aria-expanded={ showSuggestions }
 						aria-autocomplete="list"
-						aria-owns={ `editor-url-input-suggestions-${instanceId}` }
-						aria-activedescendant={ null !== selectedSuggestion ? `editor-url-input-suggestion-${instanceId}-${selectedSuggestion}` : undefined }
+						aria-owns={ `editor-url-input-suggestions-${ instanceId }` }
+						aria-activedescendant={ null !== selectedSuggestion ? `editor-url-input-suggestion-${ instanceId }-${ selectedSuggestion }` : undefined }
 					/>
 
 					{ loading && <Spinner /> }
@@ -297,19 +297,19 @@ class PostSelector extends Component {
 						<div className="post-selector-suggestions">
 							<div
 								className="editor-url-input__suggestions"
-								id={`editor-url-input-suggestions-${instanceId}`}
+								id={`editor-url-input-suggestions-${ instanceId }`}
 								ref={ this.bindListNode }
 								role="listbox">
-								{posts.map( ( post, index ) => {
+								{ posts.map( ( post, index ) => {
 									return (
 										<button
 											key={ post.id }
 											role="option"
 											tabIndex="-1"
-											id={`editor-url-input-suggestion-${instanceId}-${index}`}
+											id={`editor-url-input-suggestion-${ instanceId }-${ index }`}
 											ref={this.bindSuggestionNode( index )}
-											className={ `editor-url-input__suggestion ${index === selectedSuggestion ? 'is-selected' : ''}` }
-											onClick={() => this.selectLink( post )}
+											className={ `editor-url-input__suggestion ${ index === selectedSuggestion ? 'is-selected' : '' }` }
+											onClick={ () => this.selectLink( post ) }
 											aria-selected={ index === selectedSuggestion }>
 											<div className="suggested-item">
 												<span className="suggested-item__title">{ decodeEntities( post.title ) || '(no title)'}</span>
