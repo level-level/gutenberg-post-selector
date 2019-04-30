@@ -21,6 +21,20 @@ export default PostSelector;
 
 Create a folder called `src` within the new `__post-selector` folder and in that folder copy & paste the `post-selector.scss` & `PostSelector.js` files from this repo.
 
+## Output
+
+```javascript
+{
+	"posts": [
+		{ post 1 },
+		{ post 2 },
+		--etc
+	],
+	"post_type": "any",
+	"post_ids": [ 1, 22, 2 ]
+}
+```
+
 ## Usage
 
 block.js
@@ -166,7 +180,7 @@ posts should refer to an attribute in your block that is of type: 'array'. this 
 
 `postType : <String> (optional)`
 
-the data prop allows you to define an array of strings that map to object keys from the REST API. (does not support nesting right now).
+the data prop allows you to define an array of strings that map to object keys from the REST API.
 
 `onPostSelect : function => <Post>[]`
 
