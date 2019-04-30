@@ -4,6 +4,23 @@ REQUIRES WordPress 5.0+
 
 This is a React component built for Gutenberg that allows you to attach pages and posts like AddBySearch in the WP 5.0+ editor. 
 
+## Installation
+
+Create a new folder called `__post-selector` within the blocks folder in `src/gutenberg`.
+Create a new file `index.js` file in that folder and add:
+
+```javascript
+// PostSelector styling
+import './src/post-selector.scss';
+
+// PostSelector script
+import PostSelector from './src/PostSelector';
+export default PostSelector;
+
+```
+
+Create a folder called `src` within the `__post-selector` folder and in that folder copy & paste the `post-selector.scss` & `PostSelector.js` files from this repo.
+
 ## Usage
 
 block.js
