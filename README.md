@@ -18,7 +18,7 @@ const { InspectorControls } = wp.editor;
 const { PanelBody } = wp.components;
 
 registerBlockType( 'namespace/name-of-your-block', {
-	title: __( 'Autofiller' ),
+	title: __( 'PostSelector' ),
 	icon: 'universal-access-alt',
 	category: 'common',
 	keywords: [
@@ -149,22 +149,12 @@ posts should refer to an attribute in your block that is of type: 'array'. this 
 
 `postType : <String> (optional)`
 
-pass the singular name of a custom or built-in post type to limit results to that type (optional). 
-
-`data <String>[] (optional)`
-
 the data prop allows you to define an array of strings that map to object keys from the REST API. (does not support nesting right now).
 
-
 `onPostSelect : function => <Post>[]`
-
 
 onPostSelect runs when a user selects a new post from the suggestion list upon typing. It returns a new array of all selected posts and should replace the data in your posts attribute.
 
 `onChange: function => <Post>[]`
 
 onChange runs when the user reorders the array of posts or removes a post from the array. it returns a new array that should replace your posts attribute.
-
-`limit: <Number> (optional)`
-
-Limit the number of posts a user is allowed to select.
