@@ -4,87 +4,138 @@ REQUIRES WordPress 5.0+
 
 This is a React component built for Gutenberg that allows you to attach pages and posts like AddBySearch in the WP 5.0+ editor. 
 
-
-## Installation
-cd to your custom block plugin directory.
-
-`npm install @vermilion/post-selector`
-
 ## Usage
 
 block.js
 ```javascript
-/**
- * BLOCK: Block Name
- */
-//  Import CSS.
-import './style.scss';
 
-import PostSelector from '@vermilion/post-selector';
+import PostSelector from '../__post-selector';
 
+const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { Fragment, RawHTML } = wp.element;
+const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
 const { PanelBody } = wp.components;
 
-registerBlockType('vermilion/post-selector', {
-  title: 'Post Selector',
-  category: 'widgets',
-  keywords: [''],
-  attributes: {
-    posts: {
-      type: 'array',
-      default: []
-    },
-  },
+registerBlockType( 'namespace/name-of-your-block', {
+	title: __( 'Autofiller' ),
+	icon: 'universal-access-alt',
+	category: 'common',
+	keywords: [
+		__( 'PostSelector' ),
+		__( 'post' ),
+		__( 'selector' )
+	],
+	attributes: {
+		posts: {
+			type: 'array',
+			default: []
+		},
+		post_type: {
+			type: 'string'
+		},
+		post_ids: {
+			type: 'array',
+			default: []
+		}
+	},
+	edit: class extends Component {
+		constructor( props ) {
+			super( ...arguments );
+			this.props = props;
 
-  edit({ attributes, setAttributes }) {
-    return (
-      <Fragment>
-        <InspectorControls>
-          <PanelBody title="Post Selector">
-          
-            <PostSelector
-              onPostSelect={post => {
-                attributes.posts.push(post);
-                setAttributes({ posts: [...attributes.posts] });
-              }}
-              posts={attributes.posts}
-              onChange={newValue => {
-                setAttributes({ posts: [...newValue] });
-              }}
-              postType={'page'}
-              limit="3"
-            />
+			this.getPostIds = this.getPostIds.bind( this );
+			this.addPost = this.addPost.bind( this );
+			this.onPostChange = this.onPostChange.bind( this );
+		}
 
-          </PanelBody>
-        </InspectorControls>
-        <div>
-          {attributes.posts.map(post => (
-            <div>
-              #{post.id}
-              <h2>{post.title}</h2>
-              <RawHTML>{post.excerpt}</RawHTML>
-            </div>
-          ))}
-        </div>
-      </Fragment>
-    );
-  },
+		/**
+		* Empty the post_ids props
+		* Fill post_ids props with post_ids from posts array
+		*/
+		getPostIds() {
 
-  save({ attributes }) {
-    return(
-      <div>
-        {attributes.posts.map(post => (
-          <div>
-            #{post.id}
-            <h2>{post.title}</h2>
-            <RawHTML>{post.excerpt}</RawHTML>
-          </div>
-        ))}
-      </div>
-    )
-  }
+			// Empty attributes of post_ids
+			this.props.attributes.post_ids.splice( 0, this.props.attributes.post_ids.length );
+
+			// Map through posts in the posts attribute and push their id into the post_ids attribute
+			this.props.attributes.posts.map( ( item ) => {
+				this.props.attributes.post_ids.push( item.id );
+			});
+		}
+
+		/**
+		* Add a post
+		* @param  {object}  post  The post object
+		*/
+		addPost( post ) {
+
+			// Push posts and post ids in the attributes
+			this.props.attributes.posts.push( post );
+			this.props.attributes.post_ids.push( post.id );
+
+			// Set the posts and post ids as attributes
+			this.props.setAttributes({
+				posts: [ ...this.props.attributes.posts ],
+				post_ids: [ ...this.props.attributes.post_ids ]
+			});
+		}
+
+		/**
+		* Update post array
+		* @param  {object}  newValue  The post object
+		*/
+		onPostChange( newValue ) {
+			this.props.setAttributes({
+				posts: [ ...newValue ]
+			});
+			this.getPostIds();
+		}
+
+		render() {
+			const {
+				attributes: {
+					posts
+				},
+				setAttributes
+			} = this.props;
+
+			return (
+				<div>
+					<InspectorControls>
+						<PanelBody title={ __( 'Selectie', 'clarkson-theme' ) }>
+							<PostSelector
+								postType="any"
+								setPostType={ posttype => {
+									setAttributes({
+										post_type: posttype
+									});
+								}}
+								posts={ posts }
+								onPostSelect={ post => this.addPost( post ) }
+								onChange={ newValue => this.onPostChange( newValue ) }
+							/>
+						</PanelBody>
+					</InspectorControls>
+					<div className="output">
+						<h2>PostSelector</h2>
+						<ul className="list-unstyled">
+							{
+								posts.map( ( post, key ) => {
+									return (
+										<li key={ key }>{ post.title.rendered }</li>
+									);
+								})
+							}
+						</ul>
+					</div>
+				</div>
+			);
+		}
+	},
+	save() {
+		return null;
+	}
 });
 
 ```

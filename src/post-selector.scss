@@ -1,0 +1,116 @@
+$wp-grey: #e2e4e7;
+$background: #f5f5f5;
+
+// List of selected items
+.post-selector-selected-list {
+	margin: 0;
+	background: $background;
+	padding: 0 15px;
+
+	&__item {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: nowrap;
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+		border-bottom: 1px solid $wp-grey;
+
+		&:first-child {
+			padding-top: 10px;
+		}
+
+		&:last-child {
+			border-bottom: 0;
+		}
+	}
+}
+
+// A selected item
+.selected-post {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+
+	&__post,
+	&__button {
+		align-self: center;
+	}
+
+	&__post {
+		max-width: 60%;
+		font-weight: bold;
+	}
+}
+
+// Buttons within a selected item
+.post-selector-button {
+	display: inline-flex;
+	padding: 8px 2px;
+	text-align: center;
+}
+
+.post-selector-search {
+	position: relative;
+	background: $background;
+	padding: 10px 15px 15px 15px;
+
+	&__label {
+		display: block;
+		margin-bottom: 5px;
+		font-weight: bold;
+	}
+
+	&__input {
+		width: 100%;
+	}
+
+	.components-spinner {
+		position: absolute;
+		top: 35px;
+		right: 10px;
+	}
+}
+
+// Suggestions list
+.post-selector-suggestions {
+	.editor-url-input {
+		&__suggestions {
+			padding: 0;
+
+			.editor-url-input__suggestion {
+				&:last-child {
+					border-bottom: 0;
+				}
+			}
+		}
+
+		&__suggestion {
+			display: block;
+			padding: 8px;
+			border-bottom: 1px solid $wp-grey;
+		}
+	}
+}
+
+// Suggested item in suggestions list
+.suggested-item {
+	display: flex;
+	justify-content: space-between;
+	margin: 0 -5px;
+
+	&__title,
+	&__type {
+		padding: 0 5px;
+		align-self: center;
+	}
+
+	&__title {
+		width: 100%;
+	}
+
+	&__type {
+		font-weight: bold;
+		font-size: 12px;
+	}
+}
