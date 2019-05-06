@@ -1,6 +1,6 @@
 // PostSelector styling
-import './src/post-selector.scss';
+import './post-selector.scss';
 
 // PostSelector script
-import PostSelector from './src/PostSelector';
+import PostSelector from './PostSelector';
 export default PostSelector;
