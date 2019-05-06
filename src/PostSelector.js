@@ -1,3 +1,4 @@
+
 const { Component, Fragment } = wp.element;
 const { decodeEntities } = wp.htmlEntities;
 const { UP, DOWN, ENTER } = wp.keycodes;
@@ -20,6 +21,18 @@ function debounce( func, wait = 100 ) {
 }
 
 class PostSelector extends Component {
+
+	/**
+	* ===== Available Props =======
+	*
+	* posts <Array> of Post Objects, must include ID and title.
+	* data <Array> array of post properties to return (top level only right now)
+	* postType = <String> singular name of post type to restrict results to.
+	* onPostSelect <Function> callback for when a new post is selected.
+	* onChange <Function> callback for when posts are deleted or rearranged.
+	* limit <Number> limit selection to posts to X number of posts.
+	*
+	*/
 	constructor() {
 		super( ...arguments );
 
@@ -27,6 +40,7 @@ class PostSelector extends Component {
 		this.onKeyDown = this.onKeyDown.bind( this );
 		this.bindListNode = this.bindListNode.bind( this );
 		this.updateSuggestions = debounce( this.updateSuggestions.bind( this ), 200 );
+		this.limit = this.props.limit ? parseInt( this.props.limit ) : false;
 
 		this.suggestionNodes = [];
 
@@ -260,8 +274,10 @@ class PostSelector extends Component {
 	}
 
 	render() {
-		const { autoFocus = true, instanceId } = this.props;
+		const { autoFocus = true, instanceId, limit } = this.props;
 		const { showSuggestions, posts, selectedSuggestion, loading, input } = this.state;
+		const inputDisabled = !! limit && this.props.posts.length >= limit;
+
 		/* eslint-disable jsx-a11y/no-autofocus */
 		return (
 			<Fragment>
@@ -280,13 +296,14 @@ class PostSelector extends Component {
 						value={ input }
 						onChange={ this.onChange }
 						onInput={ stopEventPropagation }
-						placeholder={ __( 'Typ om te zoeken', 'clarkson-theme' ) }
+						placeholder={ inputDisabled ? `Het limit van ${limit} is bereikt` : __( 'Typ om te zoeken', 'clarkson-theme' ) }
 						onKeyDown={ this.onKeyDown }
 						role="combobox"
 						aria-expanded={ showSuggestions }
 						aria-autocomplete="list"
 						aria-owns={ `editor-url-input-suggestions-${ instanceId }` }
 						aria-activedescendant={ null !== selectedSuggestion ? `editor-url-input-suggestion-${ instanceId }-${ selectedSuggestion }` : undefined }
+						disabled={ inputDisabled }
 					/>
 
 					{ loading && <Spinner /> }
