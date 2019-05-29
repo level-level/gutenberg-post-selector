@@ -6,7 +6,7 @@ This is a React component built for Gutenberg that allows you to attach pages an
 
 ## Installation
 
-Create a new folder called `__post-selector` within the blocks folder in `src/gutenberg`.
+Create a new folder called `__post-selector` within the blocks folder in `src/blocks`.
 Create a new file `index.js` file in that folder and add:
 
 ```javascript
