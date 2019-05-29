@@ -6,7 +6,7 @@ This is a React component built for Gutenberg that allows you to attach pages an
 
 ## Installation
 
-Create a new folder called `__post-selector` within the blocks folder in `src/gutenberg`.
+Create a new folder called `__post-selector` within the blocks folder in `src/blocks`.
 Create a new file `index.js` file in that folder and add:
 
 ```javascript
@@ -193,7 +193,7 @@ onChange runs when the user reorders the array of posts or removes a post from t
 
 # Awesome combination time
 
-PostSelector can be combined with the [AutoFiller](https://github.com/Kevinioo/gutenberg-autofiller) component. Install it via `npm install @kevinio/gutenberg-autofill --save`
+PostSelector can be combined with the [AutoFiller](https://github.com/kevinpoot/gutenberg-autofill) component. Install it via `npm install @kevinio/gutenberg-autofill --save`
 
 Example block.js:
 
