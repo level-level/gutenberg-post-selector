@@ -87,8 +87,18 @@ $background: #f5f5f5;
 
 		&__suggestion {
 			display: block;
+			border: 0;
+			width: 100%;
 			padding: 8px;
 			border-bottom: 1px solid $wp-grey;
+			cursor: pointer;
+			-webkit-appearance: none;
+
+			&:focus,
+			&:active,
+			&:hover {
+				background-color: $wp-grey;
+			}
 		}
 	}
 }
@@ -107,6 +117,7 @@ $background: #f5f5f5;
 
 	&__title {
 		width: 100%;
+		text-align: left;
 	}
 
 	&__type {
