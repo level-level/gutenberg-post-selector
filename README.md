@@ -193,7 +193,7 @@ onChange runs when the user reorders the array of posts or removes a post from t
 
 # Awesome combination time
 
-PostSelector can be combined with the [AutoFiller](https://github.com/Kevinioo/gutenberg-autofiller) component. Install it via `npm install @kevinio/gutenberg-autofill --save`
+PostSelector can be combined with the [AutoFiller](https://github.com/kevinpoot/gutenberg-autofill) component. Install it via `npm install @kevinio/gutenberg-autofill --save`
 
 Example block.js:
 
